@@ -10,7 +10,7 @@
 ##  Si të përdorim këtë projekt:
 #### Për të përdorur këtë projekt, duhet të keni të instaluar disa pako shtesë të nevojshme për ekzekutimin e kodit dhe lidhjen me bazën e të dhënave.
 
-##### 1.tkinter: Për të përdorur ndërfaqen grafike të ofruar nga Python, duhet të keni pakoja tkinter.
+##### 1.tkinter: Për të përdorur ndërfaqen grafike të ofruar nga Python, duhet të keni pakon tkinter.
 #####  Instalimi i tkinter mund të bëhet përmes pip duke përdorur komandën: pip install tk.
 
 ##### 2.cryptography: Për të siguruar funksionalitetin e enkriptimit dhe dekriptimit AES, duhet të instaloni pakon e cryptography.
