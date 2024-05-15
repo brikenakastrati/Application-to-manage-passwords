@@ -6,7 +6,7 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 import base64
 
-class PasswordManagerApp:
+class ViewPasswords:
     def __init__(self, root):
         self.root = root
         self.root.title("Password Manager")
