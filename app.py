@@ -1,5 +1,9 @@
+#pip install tk
+#pip install cryptography 
+#execute these two before executing the script
 
-# pip install cryptography ------execute this before executing the script
+
+
 import os
 import base64
 import json
@@ -8,6 +12,8 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
+import tkinter as tk
+from tkinter import messagebox
 
 class PasswordManager:
     def __init__(self):
@@ -42,7 +48,7 @@ class PasswordManager:
         cipher = Cipher(algorithms.AES(self.master_key), modes.CFB(iv), backend=self.backend)
         decryptor = cipher.decryptor()
         plaintext = decryptor.update(raw_data[16:]) + decryptor.finalize()
-        return plaintext.decode(errors='ignore')  
+        return plaintext.decode(errors='ignore')
 
     def _load_passwords(self):
         if os.path.exists(self.data_file):
@@ -98,38 +104,48 @@ class PasswordManager:
 
 # Function to prompt the user for input and suggest a password
 def prompt_user_for_credentials(pm):
-    first_name = input("Enter your first name: ")
-    last_name = input("Enter your last name: ")
-    email = input("Enter your email: ")
+    def submit():
+        first_name = first_name_entry.get()
+        last_name = last_name_entry.get()
+        email = email_entry.get()
+        password = password_entry.get()
 
-    suggested_password = pm.generate_strong_password()
-    print(f"Suggested password: {suggested_password}")
+        password_strength = pm.calculate_password_strength(password)
+        messagebox.showinfo("Password Strength", f"Password strength: {password_strength}%")
 
-    password_choice = input("Do you want to use the suggested password? (yes/no): ")
-    if password_choice.lower() == 'yes':
-        password = suggested_password
-    else:
-        password = input("Enter your desired password: ")
+        pm.add_password("User Accounts", email, password)
+        messagebox.showinfo("Success", f"Password for {email} in User Accounts added successfully.")
 
-    return first_name, last_name, email, password
+    def suggest_password():
+        suggested_password = pm.generate_strong_password()
+        password_entry.delete(0, tk.END)
+        password_entry.insert(0, suggested_password)
+
+    root = tk.Tk()
+    root.title("Password Manager")
+
+    tk.Label(root, text="First Name").grid(row=0)
+    tk.Label(root, text="Last Name").grid(row=1)
+    tk.Label(root, text="Email").grid(row=2)
+    tk.Label(root, text="Password").grid(row=3)
+
+    first_name_entry = tk.Entry(root)
+    last_name_entry = tk.Entry(root)
+    email_entry = tk.Entry(root)
+    password_entry = tk.Entry(root)
+
+    first_name_entry.grid(row=0, column=1)
+    last_name_entry.grid(row=1, column=1)
+    email_entry.grid(row=2, column=1)
+    password_entry.grid(row=3, column=1)
+
+    tk.Button(root, text='Submit', command=submit).grid(row=4, column=0, pady=4)
+    tk.Button(root, text='Suggest Password', command=suggest_password).grid(row=4, column=1, pady=4)
+
+    root.mainloop()
 
 # Example usage
 pm = PasswordManager()
 
 # Prompt user for credentials
-first_name, last_name, email, password = prompt_user_for_credentials(pm)
-
-# Print user's name
-print(f"User: {first_name} {last_name}")
-
-# Calculate and display password strength
-password_strength = pm.calculate_password_strength(password)
-print(f"Password strength: {password_strength}%")
-
-# Add the password under the category "User Accounts" and identifier as email
-category = "User Accounts"
-identifier = email
-pm.add_password(category, identifier, password)
-print(f"Password for {identifier} in {category} added successfully.")
-
-
+prompt_user_for_credentials(pm)
