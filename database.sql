@@ -11,6 +11,7 @@ CREATE TABLE tblusers (
 CREATE TABLE tblpasswords(
     pwd_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
+    account VARCHAR(255) NOT NULL,
     encrypted_pwd VARCHAR(255) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES tblusers(user_id)
 )
