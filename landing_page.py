@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from add_password import AddPassword
-#from update_password import UpdatePassword
+from update_password import UpdatePassword
 from password_display import ViewPasswords
 
 class LandingPage(tk.Tk):
