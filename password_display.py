@@ -78,5 +78,5 @@ class ViewPasswords:
 # Initialize Tkinter app
 root = tk.Tk()
 root.configure(bg="#f0f0f0")  # Set background color
-app = PasswordManagerApp(root)
+app = ViewPasswords(root)
 root.mainloop()
