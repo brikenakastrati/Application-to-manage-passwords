@@ -2,7 +2,7 @@
 ##### Ky eshte nje projekt i punuar nga studente te vitit te dyte te Universitetit "Hasan Prishtina"-Fakulteti i Inxhinieris Elektrike dhe Kompjuterike ne Lenden "Data Security"-Prof.Blerim Rexha dhe Asc.Mergim Hoti.
 
 ## Përshkrimi i projektit:
-##### Ky projekt ka për qëllim të ofrojë një mjet të besueshëm për menaxhimin dhe sigurimin e fjalëkalimeve të përdoruesve. Projekti përdor një kombinim të gjuhës programuese Python, bibliotekën për enkriptim "cryptography", dhe ndërfaqen grafike të ofruar nga "tkinter" për të krijuar një aplikacion të sigurt dhe të përdorshëm.
+##### Ky projekt ka për qëllim të ofrojë një mjet të besueshëm për menaxhimin dhe sigurimin e fjalëkalimeve të përdoruesve.  Projekti ofron funksionalitet për të shtuar, përditësuar dhe shikuar fjalëkalime të ruajtura në një bazë të të dhënave MySQL.
 
 ## Struktura e projektit:
 ##### Projekti është organizuar në disa klasa dhe funksione që kryejnë veprimet e nevojshme për menaxhimin e fjalëkalimeve dhe sigurimin e të dhënave.Projekti ka mundesine e krijimit te llogarive me 'login' dhe 'signup' ku pas kycjes me sukses, hapet landing page e cila i oforn userit 3 aktivitete: 
@@ -26,4 +26,10 @@
 
 ## Rezultatet e pritshme nga ky projekt:
 ##### Rezultatet e pritshme nga ky projekt janë krijimi i një aplikacioni funksional dhe të sigurt për menaxhimin e fjalëkalimeve, si dhe siguria e të dhënave të përdoruesve përmes enkriptimit AES dhe lidhjes së sigurt me bazën e të dhënave. Ky projekt ofron një mjet të rëndësishëm për përdoruesit që duan të mbajnë fjalëkalimet e tyre të sigurta dhe të organizuar në një mënyrë efikase.
+
+## Kontribues ne kete projekt jane:
+##### -[Brikena Kastrati ](https://github.com/brikenakastrati)
+##### -[Daris Dragusha ](https://github.com/darisdr)
+##### -[Dea Limoni ](https://github.com/DeaLimoni)
+
 
