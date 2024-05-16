@@ -8,14 +8,14 @@ import base64
 class AddPassword:
     def __init__(self, root):
         self.root = root
-        self.root.title("Password Manager")
+        self.root.title("Add Password")
         self.root.geometry("400x200")
 
         # Connect to the database
         self.conn = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="",
+            password="2302",
             database="siguria"
         )
 

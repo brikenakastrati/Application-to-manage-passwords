@@ -26,17 +26,17 @@ class LandingPage(tk.Tk):
         view_button.pack(pady=10)
 
     def open_add_password(self):
-        add_password_window = AddPassword()
-        add_password_window.mainloop()
+        add_password_window = tk.Toplevel(self)
+        AddPassword(add_password_window)
 
     def open_update_password(self):
-        update_password_window = UpdatePassword()
-        update_password_window.mainloop()
+        update_password_window = tk.Toplevel(self)
+        UpdatePassword(update_password_window)
 
     def open_view_passwords(self):
-        view_passwords_window = ViewPasswords()
-        view_passwords_window.mainloop()
+        view_passwords_window = tk.Toplevel(self)
+        ViewPasswords(view_passwords_window)
 
-if __name__ == "__main__":
-    app = LandingPage()
-    app.mainloop()
+# Create an instance of LandingPage and start the main loop
+app = LandingPage()
+app.mainloop()

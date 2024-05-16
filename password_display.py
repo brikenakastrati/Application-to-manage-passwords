@@ -9,15 +9,15 @@ import base64
 class ViewPasswords:
     def __init__(self, root):
         self.root = root
-        self.root.title("Password Manager")
+        self.root.title("View Passwords")
         self.root.geometry("500x400")
 
         # Connect to the database
         self.conn = mysql.connector.connect(
             host="localhost",
-            user="your_username",
-            password="your_password",
-            database="your_database"
+            user="root",
+            password="2302",
+            database="siguria"
         )
 
         # Create UI elements
@@ -34,7 +34,6 @@ class ViewPasswords:
 
         # Display passwords with styling
         self.display_passwords()
-
     def decrypt_password(self, encrypted_password):
         # Initialize AES cipher
         key = b'Sixteen byte key'
