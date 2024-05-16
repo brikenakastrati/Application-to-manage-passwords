@@ -3,6 +3,10 @@ from tkinter import messagebox
 import mysql.connector
 import random
 import string
+from cryptography.fernet import Fernet
+import hashlib
+import subprocess
+
 
 # Lidhja me databazën
 def connect():
@@ -19,10 +23,52 @@ def connect():
     except mysql.connector.Error as e:
         messagebox.showerror("Gabim në Lidhje", f"Gabim në lidhjen me bazën e të dhënave: {e}")
 
+# Krijo një çelës AES të rastit të fortë
+def generate_aes_key():
+    return Fernet.generate_key()
+
+# Krijo një objekt AES me çelësin e dhënë
+def create_aes_cipher(key):
+    return Fernet(key)
+
+# Enkripto një fjalëkalim me AES
+def encrypt_password(aes_cipher, password):
+    return aes_cipher.encrypt(password.encode())
+
+# Dekripto një fjalëkalim të enkriptuar me AES
+def decrypt_password(aes_cipher, encrypted_password):
+    return aes_cipher.decrypt(encrypted_password).decode()
+# Funksioni për ruajtjen e një fjalëkalimi të enkriptuar në databazë
+def save_encrypted_password(conn, full_name, email, encrypted_password):
+    try:
+        cursor = conn.cursor()
+        query_insert_user = "INSERT INTO tblusers (full_name, email, password) VALUES (%s, %s, %s)"
+        cursor.execute(query_insert_user, (full_name, email, encrypted_password))
+        conn.commit()
+        messagebox.showinfo("Sukses në Regjistrim", "Regjistrimi u krye me sukses.")
+    except mysql.connector.Error as e:
+        messagebox.showerror("Gabim në Regjistrim", f"Gabim në regjistrim: {e}")
+        conn.rollback()
+
+# Funksioni për marrjen e një fjalëkalimi të enkriptuar nga databaza
+def get_encrypted_password(conn, email):
+    try:
+        cursor = conn.cursor()
+        query_get_password = "SELECT password FROM tblusers WHERE email = %s"
+        cursor.execute(query_get_password, (email,))
+        encrypted_password = cursor.fetchone()
+        return encrypted_password[0] if encrypted_password else None
+    except mysql.connector.Error as e:
+        messagebox.showerror("Gabim në Marrje të Fjalëkalimit", f"Gabim në marrjen e fjalëkalimit: {e}")
+        return None
+
 # Funksioni për regjistrimin e përdoruesve
 def signup(conn, full_name, email, password):
     try:
         cursor = conn.cursor()
+        if not email or not password or not full_name:
+            messagebox.showerror("Gabim në Regjistrim", "Emaili dhe fjalëkalimi duhet të plotësohen.")
+            return 
         
         # Kontrollo nëse ekziston një përdorues me të njëjtin email
         query_check_email = "SELECT * FROM tblusers WHERE email = %s"
@@ -32,9 +78,16 @@ def signup(conn, full_name, email, password):
             messagebox.showerror("Gabim në Regjistrim", "Ekziston një përdorues me këtë email.")
             return
         
+        # Krijo një çelës AES të rastit të fortë dhe objektin e enkriptimit
+        aes_key = generate_aes_key()
+        aes_cipher = create_aes_cipher(aes_key)
+        
+        # Enkripto fjalëkalimin
+        encrypted_password = encrypt_password(aes_cipher, password)
+        
         # Shto përdoruesin në bazën e të dhënave nëse nuk ekziston
-        query_insert_user = "INSERT INTO tblusers (full_name, email, password) VALUES (%s, %s, %s)"
-        cursor.execute(query_insert_user, (full_name, email, password))
+        query_insert_user = "INSERT INTO tblusers (full_name, email, password, aes_key) VALUES (%s, %s, %s, %s)"
+        cursor.execute(query_insert_user, (full_name, email, encrypted_password, aes_key))
         conn.commit()
         
         messagebox.showinfo("Sukses në Regjistrim", "Regjistrimi u krye me sukses.")
@@ -53,12 +106,16 @@ def switch_to_login():
     Label(login_window, text="Email:").pack()
     login_email_entry = Entry(login_window)
     login_email_entry.pack()
-    Label(login_window, text="Fjalëkalimi:").pack()
+    Label(login_window, text="Password:").pack()
     login_password_entry = Entry(login_window, show="*")
     login_password_entry.pack()
-    Button(login_window, text="Hyr", command=on_login).pack()
+    Button(login_window, text="Log in", command=on_login).pack()
 
     login_window.mainloop()  # Fillimi i dritares së hyrjes në sistem
+
+
+
+
 
 def on_login():
     global login_email_entry, login_password_entry
@@ -74,21 +131,43 @@ def on_login():
     
     # Lidhuni me bazën e të dhënave
     conn = connect()
+
     if conn:
         try:
             cursor = conn.cursor()
             
-            # Verifikoni kredencialet e përdoruesit
-            query_check_credentials = "SELECT * FROM tblusers WHERE email = %s AND password = %s"
-            cursor.execute(query_check_credentials, (email, password))
-            user = cursor.fetchone()
-            
-            if user:
-                messagebox.showinfo("Sukses në Hyrje", "Hyrja në sistem u krye me sukses.")
-                # Bëni diçka pas hyrjes së suksesshme, si hapja e një dritare të re ose veprime të tjera
-                
+            # Merrni fjalëkalimin e enkriptuar nga bazës së të dhënave
+            encrypted_password_db = get_encrypted_password(conn, email)
+            if encrypted_password_db:
+                # Merrni çelësin AES nga bazës së të dhënave
+                aes_key = get_aes_key_from_db(conn, email)
+                if aes_key:
+                    # Krijo objektin e AES cifrës
+                    aes_cipher = create_aes_cipher(aes_key)
+                    
+                    # Dekriptoni fjalëkalimin e enkriptuar
+                    decrypted_password_db = decrypt_password(aes_cipher, encrypted_password_db)
+                    
+                    # Krahaso fjalëkalimet e dekriptuara
+                    if decrypted_password_db == password:  
+                        try:
+                                    subprocess.run(["python", "landing_page.py"])
+                        except FileNotFoundError:
+                                    print("Gabim: Skripta nuk u gjet.")
+                        
+                         
+                        messagebox.showinfo("Sukses në Hyrje", "Hyrja në sistem u krye me sukses.")
+                        
+                         
+
+                        # Bëni veprimet pas hyrjes së suksesshme, si hapja e një dritare të re ose veprime të tjera
+                    else:
+                        messagebox.showerror("Gabim në Hyrje", "Email-i ose fjalëkalimi është i pasaktë.")
+                else:
+                    messagebox.showerror("Gabim në Hyrje", "Çelësi AES nuk u gjet për këtë përdorues.")
             else:
                 messagebox.showerror("Gabim në Hyrje", "Email-i ose fjalëkalimi është i pasaktë.")
+                return
             
         except mysql.connector.Error as e:
             messagebox.showerror("Gabim në Hyrje", f"Gabim në verifikimin e përdoruesit: {e}")
@@ -96,8 +175,24 @@ def on_login():
         finally:
             cursor.close()  # Mbyll cursor-in
             conn.close()  # Mbyll lidhjen me bazën e të dhënave
+    else:
+        messagebox.showerror("Gabim në Hyrje", "Lidhja me bazën e të dhënave dështoi.")
+       
 
 
+    
+
+# Function to get AES key from the database based on email
+def get_aes_key_from_db(conn, email):
+    try:
+        cursor = conn.cursor()
+        query_get_aes_key = "SELECT aes_key FROM tblusers WHERE email = %s"
+        cursor.execute(query_get_aes_key, (email,))
+        aes_key = cursor.fetchone()
+        return aes_key[0] if aes_key else None
+    except mysql.connector.Error as e:
+        messagebox.showerror("Gabim në Marrje të Çelësit AES", f"Gabim në marrjen e çelësit AES: {e}")
+        return None
 
 # Funksioni për gjenerimin e një fjalëkalimi të fortë
 def generate_strong_password():
@@ -141,24 +236,27 @@ def on_signup():
 
 # Krijimi i ndërfaqes grafike për regjistrimin
 root = Tk()
-root.title("Regjistrimi")
+root.title("Register")
 
 # Labels dhe Entries
-Label(root, text="Emri i Plotë:").pack()
+Label(root, text="Name:").pack()
 full_name_entry = Entry(root)
 full_name_entry.pack()
 Label(root, text="Email:").pack()
 email_entry = Entry(root)
 email_entry.pack()
-Label(root, text="Fjalëkalimi:").pack()
+Label(root, text="Password:").pack()
 password_entry = Entry(root, show="*")
 password_entry.pack()
 
 # Button për sugjerimin e fjalëkalimit të fortë
-suggest_password_button = Button(root, text="Sugjero Fjalëkalimin e Fortë", command=suggest_strong_password)
+suggest_password_button = Button(root, text="Suggest a strong password", command=suggest_strong_password)
 suggest_password_button.pack()
 
 # Button për regjistrim
-Button(root, text="Regjistrohu", command=on_signup).pack()
+Button(root, text="Register", command=on_signup).pack()
+
+login_button = Button(root, text="Go to log in", command=switch_to_login)
+login_button.pack(side=BOTTOM)
 
 root.mainloop()
