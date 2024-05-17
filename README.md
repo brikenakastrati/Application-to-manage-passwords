@@ -7,12 +7,12 @@
 ## Struktura e projektit:
 ##### Projekti përmban skedarët e mëposhtëm:
 
-##### add_password.py: Moduli për shtimin e fjalëkalimeve të reja.
-##### update_password.py: Moduli për përditësimin e fjalëkalimeve ekzistuese.
-##### password_display.py: Moduli për shikimin e fjalëkalimeve të dekriptuara.
-##### login_signup.py: Moduli për regjistrimin dhe hyrjen e përdoruesve.
-##### landing_page.py: Skedari kryesor i aplikacionit që shërben si faqja kryesore pas hyrjes së përdoruesit.
-##### database.sql: Skripti SQL për krijimin e bazës së të dhënave dhe tabelave të nevojshme.
+##### -add_password.py: Moduli për shtimin e fjalëkalimeve të reja.
+##### -update_password.py: Moduli për përditësimin e fjalëkalimeve ekzistuese.
+##### -password_display.py: Moduli për shikimin e fjalëkalimeve të dekriptuara.
+##### -login_signup.py: Moduli për regjistrimin dhe hyrjen e përdoruesve.
+##### -landing_page.py: Skedari kryesor i aplikacionit që shërben si faqja kryesore pas hyrjes së përdoruesit.
+##### -database.sql: Skripti SQL për krijimin e bazës së të dhënave dhe tabelave të nevojshme.
 
 ##  Si të përdorim këtë projekt:
 #### Për të përdorur këtë projekt, duhet të keni të instaluar disa pako shtesë të nevojshme për ekzekutimin e kodit dhe lidhjen me bazën e të dhënave.
