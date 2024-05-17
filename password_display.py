@@ -5,6 +5,7 @@ import mysql.connector
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 import base64
+from login_signup import logged_in_user_id
 
 class ViewPasswords:
     def __init__(self, root):
@@ -46,8 +47,11 @@ class ViewPasswords:
 
     def display_passwords(self):
         cursor = self.conn.cursor(dictionary=True)
-        query = "SELECT account, encrypted_pwd FROM tblpasswords"
-        cursor.execute(query)
+        # Modify the query to include a WHERE clause for user_id
+        query = "SELECT account, encrypted_pwd FROM tblpasswords WHERE user_id = %s"
+
+        # Execute the query with the logged-in user ID as the parameter
+        cursor.execute(query, (logged_in_user_id))        
         for row in cursor.fetchall():
             platform = row['account']
             encrypted_password = row['encrypted_pwd']

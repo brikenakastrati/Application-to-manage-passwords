@@ -118,7 +118,7 @@ def switch_to_login():
 
 
 def on_login():
-    global login_email_entry, login_password_entry
+    global login_email_entry, login_password_entry, logged_in_user_id
     
     # Merrni email-in dhe fjalëkalimin e vendosur
     email = login_email_entry.get()
@@ -151,6 +151,7 @@ def on_login():
                     # Krahaso fjalëkalimet e dekriptuara
                     if decrypted_password_db == password:  
                         try:
+                                    logged_in_user_id = get_user_id_from_db(conn, email)
                                     subprocess.run(["python", "landing_page.py"])
                         except FileNotFoundError:
                                     print("Gabim: Skripta nuk u gjet.")
@@ -179,7 +180,16 @@ def on_login():
         messagebox.showerror("Gabim në Hyrje", "Lidhja me bazën e të dhënave dështoi.")
        
 
-
+def get_user_id_from_db(conn, email):
+    try:
+        cursor = conn.cursor()
+        query_get_user_id = "SELECT user_id FROM tblusers WHERE email = %s"
+        cursor.execute(query_get_user_id, (email,))
+        user_id = cursor.fetchone()
+        return user_id[0] if user_id else None
+    except mysql.connector.Error as e:
+        messagebox.showerror("Database Error", f"Error retrieving user ID: {e}")
+        return None
     
 
 # Function to get AES key from the database based on email

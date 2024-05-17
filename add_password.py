@@ -4,6 +4,7 @@ import mysql.connector
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
 import base64
+from login_signup import logged_in_user_id
 
 class AddPassword:
     def __init__(self, root):
@@ -49,8 +50,8 @@ class AddPassword:
         encrypted_password = self.encrypt_password(password)
 
         cursor = self.conn.cursor()
-        query = "INSERT INTO tblpasswords (account, encrypted_pwd) VALUES (%s, %s)"
-        values = (account, encrypted_password)
+        query = "INSERT INTO tblpasswords (account, encrypted_pwd, user_id) VALUES (%s, %s, %s)"
+        values = (account, encrypted_password, logged_in_user_id)
 
         try:
             cursor.execute(query, values)
