@@ -114,7 +114,8 @@ def switch_to_login():
     login_window.mainloop()  # Fillimi i dritares së hyrjes në sistem
 
 
-
+def get_logged_in_user_id():
+    return logged_in_user_id
 
 
 def on_login():

@@ -4,7 +4,7 @@ import mysql.connector
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
 import base64
-from login_signup import logged_in_user_id
+from login_signup import get_logged_in_user_id
 
 class UpdatePassword:
     def __init__(self, root):
@@ -54,7 +54,7 @@ class UpdatePassword:
         query = "UPDATE tblpasswords SET encrypted_pwd = %s WHERE account = %s AND user_id = %s"
 
         # Assuming you have the values for encrypted_pwd and account
-        values = (encrypted_password, account, logged_in_user_id)
+        values = (encrypted_password, account, get_logged_in_user_id)
 
         try:
             cursor.execute(query, values)
