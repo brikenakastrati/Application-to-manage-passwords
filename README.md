@@ -20,7 +20,7 @@
 ##### Instalimi i cryptography mund të bëhet përmes pip duke përdorur komandën: pip install cryptography.
 
 ##### 3.pycryptodome: Për të përdorur funksionet  si shifrimi dhe dekriptimi i të dhënave, nënshkrimi dhe verifikimi i të dhënave duhet te instaloni pakon e pycryptodome.
-##### instalimi i pycryptodome mund te behet permes pip duke perdorur komanden: pip install pycryptodome.
+##### Instalimi i pycryptodome mund te behet permes pip duke perdorur komanden: pip install pycryptodome.
 
 ##### Pasi të keni instaluar këto pako, ju mund të ekzekutoni kodin për të filluar të përdorni aplikacionin për menaxhimin e fjalëkalimeve. Pastaj, mund të ndiqni hapat e ndërfaqes së përdoruesit për të regjistruar një llogari dhe për të hyrë në aplikacion duke përdorur llogarinë tuaj të krijuar.
 
