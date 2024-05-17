@@ -51,7 +51,8 @@ class ViewPasswords:
         query = "SELECT account, encrypted_pwd FROM tblpasswords WHERE user_id = %s"
 
         # Execute the query with the logged-in user ID as the parameter
-        cursor.execute(query, (get_logged_in_user_id))        
+        logged_in_user_id = get_logged_in_user_id()
+        cursor.execute(query, (logged_in_user_id,))        
         for row in cursor.fetchall():
             platform = row['account']
             encrypted_password = row['encrypted_pwd']

@@ -51,7 +51,8 @@ class AddPassword:
 
         cursor = self.conn.cursor()
         query = "INSERT INTO tblpasswords (account, encrypted_pwd, user_id) VALUES (%s, %s, %s)"
-        values = (account, encrypted_password, get_logged_in_user_id)
+        logged_in_user_id = get_logged_in_user_id()
+        values = (account, encrypted_password, logged_in_user_id)
 
         try:
             cursor.execute(query, values)

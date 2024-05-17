@@ -54,7 +54,8 @@ class UpdatePassword:
         query = "UPDATE tblpasswords SET encrypted_pwd = %s WHERE account = %s AND user_id = %s"
 
         # Assuming you have the values for encrypted_pwd and account
-        values = (encrypted_password, account, get_logged_in_user_id)
+        logged_in_user_id = get_logged_in_user_id()
+        values = (encrypted_password, account, logged_in_user_id)
 
         try:
             cursor.execute(query, values)
