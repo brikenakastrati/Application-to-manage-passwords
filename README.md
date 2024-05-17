@@ -2,13 +2,17 @@
 ##### Ky eshte nje projekt i punuar nga studente te vitit te dyte te Universitetit "Hasan Prishtina"-Fakulteti i Inxhinieris Elektrike dhe Kompjuterike ne Lenden "Data Security"-Prof.Blerim Rexha dhe Asc.Mergim Hoti.
 
 ## Përshkrimi i projektit:
-##### Ky projekt ka për qëllim të ofrojë një mjet të besueshëm për menaxhimin dhe sigurimin e fjalëkalimeve të përdoruesve.  Projekti ofron funksionalitet për të shtuar, përditësuar dhe shikuar fjalëkalime të ruajtura në një bazë të të dhënave MySQL.
+##### Ky Aplikacion ka për qëllim të ofrojë një mjet të besueshëm për menaxhimin dhe sigurimin e fjalëkalimeve të përdoruesve. Aplikacioni ofron funksionalitete për regjistrimin e përdoruesve, hyrjen, shtimin, shikimin dhe përditësimin e fjalëkalimeve të enkriptuara. 
 
 ## Struktura e projektit:
-##### Projekti është organizuar në disa klasa dhe funksione që kryejnë veprimet e nevojshme për menaxhimin e fjalëkalimeve dhe sigurimin e të dhënave.Projekti ka mundesine e krijimit te llogarive me 'login' dhe 'signup' ku pas kycjes me sukses, hapet landing page e cila i oforn userit 3 aktivitete: 
-##### -Add password
-##### -Update password
-##### -view password
+##### Projekti përmban skedarët e mëposhtëm:
+
+##### add_password.py: Moduli për shtimin e fjalëkalimeve të reja.
+##### update_password.py: Moduli për përditësimin e fjalëkalimeve ekzistuese.
+##### password_display.py: Moduli për shikimin e fjalëkalimeve të dekriptuara.
+##### login_signup.py: Moduli për regjistrimin dhe hyrjen e përdoruesve.
+##### landing_page.py: Skedari kryesor i aplikacionit që shërben si faqja kryesore pas hyrjes së përdoruesit.
+##### database.sql: Skripti SQL për krijimin e bazës së të dhënave dhe tabelave të nevojshme.
 
 ##  Si të përdorim këtë projekt:
 #### Për të përdorur këtë projekt, duhet të keni të instaluar disa pako shtesë të nevojshme për ekzekutimin e kodit dhe lidhjen me bazën e të dhënave.
