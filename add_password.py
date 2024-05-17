@@ -65,4 +65,4 @@ class AddPassword:
 # Initialize Tkinter app
 root = tk.Tk()
 app = AddPassword(root)
-root.mainloop()
+
