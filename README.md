@@ -26,7 +26,7 @@
 ##### 3.pycryptodome: Për të përdorur funksionet  si shifrimi dhe dekriptimi i të dhënave, nënshkrimi dhe verifikimi i të dhënave duhet te instaloni pakon e pycryptodome.
 ##### Instalimi i pycryptodome mund te behet permes pip duke perdorur komanden: pip install pycryptodome.
 
-##### Pasi të keni instaluar këto pako, ju mund të ekzekutoni kodin për të filluar të përdorni aplikacionin për menaxhimin e fjalëkalimeve. Pastaj, mund të ndiqni hapat e ndërfaqes së përdoruesit për të regjistruar një llogari dhe për të hyrë në aplikacion duke përdorur llogarinë tuaj të krijuar.
+##### Pasi të keni instaluar këto pako, ju mund të ekzekutoni kodin për të filluar të përdorni aplikacionin për menaxhimin e fjalëkalimeve. Pastaj, mund të ndiqni hapat e ndërfaqes së përdoruesit për të regjistruar një llogari dhe për të hyrë në aplikacion duke përdorur llogarinë tuaj të krijuar. 
 
 ## Rezultatet e pritshme nga ky projekt:
 ##### Rezultatet e pritshme nga ky projekt janë krijimi i një aplikacioni funksional dhe të sigurt për menaxhimin e fjalëkalimeve, si dhe siguria e të dhënave të përdoruesve përmes enkriptimit AES dhe lidhjes së sigurt me bazën e të dhënave. Ky projekt ofron një mjet të rëndësishëm për përdoruesit që duan të mbajnë fjalëkalimet e tyre të sigurta dhe të organizuar në një mënyrë efikase.
