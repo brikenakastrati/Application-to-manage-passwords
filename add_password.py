@@ -62,7 +62,3 @@ class AddPassword:
         finally:
             cursor.close()
 
-# Initialize Tkinter app
-root = tk.Tk()
-app = AddPassword(root)
-

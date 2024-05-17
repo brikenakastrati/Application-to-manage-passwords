@@ -74,8 +74,5 @@ class ViewPasswords:
         else:
             return "strong"  # Default to strong if unknown
 
-# Initialize Tkinter app
-root = tk.Tk()
-root.configure(bg="#f0f0f0")  # Set background color
-app = ViewPasswords(root)
+
 

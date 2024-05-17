@@ -4,7 +4,6 @@ from add_password import AddPassword
 from update_password import UpdatePassword
 from password_display import ViewPasswords
 
-
 class LandingPage(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -39,5 +38,6 @@ class LandingPage(tk.Tk):
         ViewPasswords(view_passwords_window)
 
 # Create an instance of LandingPage and start the main loop
-app = LandingPage()
-app.mainloop()
+if __name__ == "__main__":
+    app = LandingPage()
+    app.mainloop()
