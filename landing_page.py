@@ -38,6 +38,5 @@ class LandingPage(tk.Tk):
         ViewPasswords(view_passwords_window)
 
 # Create an instance of LandingPage and start the main loop
-if __name__ == "__main__":
-    app = LandingPage()
-    app.mainloop()
+app = LandingPage()
+app.mainloop()
