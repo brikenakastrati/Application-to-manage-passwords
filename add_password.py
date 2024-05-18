@@ -47,14 +47,14 @@ class AddPassword:
 
     def generate_strong_password(self):
         characters = string.ascii_letters + string.digits + string.punctuation
-        strong_password = ''.join(random.choice(characters) for i in range(16))  # Gjeneroni një fjalëkalim 16 karakterësh
+        strong_password = ''.join(random.choice(characters) for i in range(16)) 
         return strong_password
 
     def suggest_password(self):
         suggested_password = self.generate_strong_password()
-        self.password_entry.delete(0, tk.END)  # Fshini çdo gjë nga hyrja e fjalëkalimit
-        self.password_entry.insert(0, suggested_password)  # Vendosni fjalëkalimin e sugjeruar në hyrjen e fjalëkalimit
-        self.password_entry.config(show='')  # Tregoni fjalëkalimin
+        self.password_entry.delete(0, tk.END)  
+        self.password_entry.insert(0, suggested_password) 
+        self.password_entry.config(show='')  
 
     def toggle_password_visibility(self):
      if self.password_entry.cget('show') == '*':
