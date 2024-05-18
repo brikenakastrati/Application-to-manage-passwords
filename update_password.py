@@ -16,7 +16,7 @@ class UpdatePassword:
         self.conn = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="1234",
+            password="2302",
             database="siguria"
         )
 
@@ -38,6 +38,7 @@ class UpdatePassword:
         padded_password = pad(password.encode(), AES.block_size)  # Pad the password to make it multiple of block size
         encrypted_password = base64.b64encode(cipher.encrypt(padded_password))  # Encrypt and encode the password
         return encrypted_password.decode()
+    
 
     def update_password(self):
         account = self.account_entry.get()
