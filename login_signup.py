@@ -204,7 +204,7 @@ def generate_strong_password():
 
 def suggest_strong_password():
     suggested_password = generate_strong_password()
-    confirmation = messagebox.askyesno("Sugjerimi i Fjalëkalimit", f"Sugjerimi: {suggested_password}\n\nA dëshironi ta përdorni këtë sugjerim?")
+    confirmation = messagebox.askyesno("🔒 Sugjerimi i Fjalëkalimit", f"Sugjerimi: {suggested_password}\n\nA dëshironi ta përdorni këtë sugjerim?")
     if confirmation:
         password_entry.delete(0, END)
         password_entry.insert(0, suggested_password)
@@ -215,7 +215,7 @@ def suggest_strong_password():
 def on_use_suggested_password(suggested_password):
     password_entry.delete(0, END)
     password_entry.insert(0, suggested_password)
-    messagebox.showinfo("Sugjerimi i Fjalëkalimit", "Fjalëkalimi i sugjeruar është vendosur.")
+    messagebox.showinfo("🔒 Sugjerimi i Fjalëkalimit", "Fjalëkalimi i sugjeruar është vendosur.")
 
 
 def on_signup():
@@ -250,13 +250,13 @@ password_entry = Entry(root, show="*")
 password_entry.pack()
 
 
-suggest_password_button = Button(root, text="Suggest a strong password", command=suggest_strong_password)
+suggest_password_button = Button(root, text="Suggest a strong password", command=suggest_strong_password, fg="blue")
 suggest_password_button.pack()
 
 
 Button(root, text="Register", command=on_signup).pack()
 
-login_button = Button(root, text="Go to log in", command=switch_to_login)
+login_button = Button(root, text="Go to log in", command=switch_to_login, fg="blue")
 login_button.pack(side=BOTTOM)
 
 root.mainloop()
