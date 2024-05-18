@@ -155,7 +155,7 @@ def on_login():
                         except FileNotFoundError:
                             print("Gabim: Skripta nuk u gjet.")
                         
-                        messagebox.showinfo("Sukses në Hyrje", "Hyrja në sistem u krye me sukses.")
+                        #messagebox.showinfo("Sukses në Hyrje", "Hyrja në sistem u krye me sukses.")
                         # Bëni veprimet pas hyrjes së suksesshme, si hapja e një dritare të re ose veprime të tjera
                     else:
                         messagebox.showerror("Gabim në Hyrje", "Email-i ose fjalëkalimi është i pasaktë.")
