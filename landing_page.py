@@ -8,22 +8,25 @@ class LandingPage(tk.Tk):
     def __init__(self, logged_in_user_id):
         super().__init__()
         self.title("Password Manager")
-        self.geometry("400x200")
+        self.geometry("400x300")
         self.configure(background="#f0f0f0")
         self.logged_in_user_id = logged_in_user_id  # Store logged_in_user_id as an attribute
-
+  # Create a title label
+        title_label = ttk.Label(self, text="Welcome to Password Manager", font=("Helvetica", 16, "bold"))
+        title_label.pack(pady=20)
+        
         # Style for buttons
         style = ttk.Style()
-        style.configure('TButton', background='#007bff', foreground='black')
+        style.configure('TButton', background='#007bff', foreground='black', font=('Helvetica', 10), padding=10))
 
         # Create and place buttons
-        add_button = ttk.Button(self, text="Add Password", command=self.open_add_password)
+        add_button = ttk.Button(self, text="➕Add Password", command=self.open_add_password)
         add_button.pack(pady=10)
 
-        update_button = ttk.Button(self, text="Update Password", command=self.open_update_password)
+        update_button = ttk.Button(self, text="✏️Update Password", command=self.open_update_password)
         update_button.pack(pady=10)
 
-        view_button = ttk.Button(self, text="View Passwords", command=self.open_view_passwords)
+        view_button = ttk.Button(self, text="🔍View Passwords", command=self.open_view_passwords)
         view_button.pack(pady=10)
 
     def open_add_password(self):
