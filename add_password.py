@@ -14,6 +14,8 @@ class AddPassword:
         self.root.geometry("400x200")
         self.logged_in_user_id = logged_in_user_id  # Store logged_in_user_id as an attribute
 
+       
+        
         # Connect to the database
         self.conn = mysql.connector.connect(
             host="localhost",
@@ -21,7 +23,10 @@ class AddPassword:
             password="2302",
             database="siguria"
         )
-
+         # Create a title label
+        title_label = ttk.Label(master, text="Add New Password", font=("Helvetica", 16, "bold"))
+        title_label.pack(pady=20)
+        
         # Labels and Entries
         tk.Label(root, text="Account:").grid(row=0, column=0, padx=10, pady=10)
         self.account_entry = tk.Entry(root)
@@ -31,6 +36,7 @@ class AddPassword:
         self.password_entry = tk.Entry(root, show="*")
 
         self.password_entry.grid(row=1, column=1, padx=10, pady=10)
+         tk.Label(root, text="(8-20 characters)", font=("Helvetica", 8), fg="gray").pack()
 
         # Button to save password
         tk.Button(root, text="Save", command=self.save_password).grid(row=2, column=0, columnspan=2, pady=5)
