@@ -23,25 +23,23 @@ class AddPassword:
             password="2302",
             database="siguria"
         )
-         # Create a title label
-        title_label = ttk.Label(master, text="Add New Password", font=("Helvetica", 16, "bold"))
-        title_label.pack(pady=20)
+         
         
         # Labels and Entries
-        tk.Label(root, text="Account:").grid(row=0, column=0, padx=10, pady=10)
+        tk.Label(root, text="Account:").pack( padx=10, pady=3)
         self.account_entry = tk.Entry(root)
-        self.account_entry.grid(row=0, column=1, padx=10, pady=10)
+        self.account_entry.pack( padx=10, pady=5)
 
-        tk.Label(root, text="Password:").grid(row=1, column=0, padx=10, pady=10)
+        tk.Label(root, text="Password:").pack( padx=10, pady=3)
         self.password_entry = tk.Entry(root, show="*")
 
-        self.password_entry.grid(row=1, column=1, padx=10, pady=10)
-         tk.Label(root, text="(8-20 characters)", font=("Helvetica", 8), fg="gray").pack()
+        self.password_entry.pack( padx=10, pady=3)
+        
 
         # Button to save password
-        tk.Button(root, text="Save", command=self.save_password).grid(row=2, column=0, columnspan=2, pady=5)
-        tk.Button(root, text="Suggest Strong Password", command=self.suggest_password).grid(row=3, column=0, columnspan=2, pady=5)
-        tk.Button(root, text="Toggle Password Visibility", command=self.toggle_password_visibility).grid(row=4, column=0, columnspan=2, pady=5)
+        tk.Button(root, text="Save", command=self.save_password).pack( padx=10, pady=2)
+        tk.Button(root, text="🔒 Suggest Strong Password", fg="blue", command=self.suggest_password).pack( padx=10, pady=2)
+        tk.Button(root, text="Toggle Password Visibility", command=self.toggle_password_visibility).pack( padx=10, pady=2)
 
     def encrypt_password(self, password):
         key = b'Sixteen byte key'  # 16-byte key for AES

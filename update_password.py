@@ -33,7 +33,7 @@ class UpdatePassword:
 
         # Button to update password
         tk.Button(root, text="Update", command=self.update_password).pack(padx=10, pady=2)
-        tk.Button(root, text="Suggest Strong Password", command=self.suggest_password).pack(padx=10, pady=2)
+        tk.Button(root, text="🔒 Suggest Strong Password", fg="blue",command=self.suggest_password).pack(padx=10, pady=2)
         tk.Button(root, text="Toggle Password Visibility", command=self.toggle_password_visibility).pack(padx=10, pady=2)
 
 

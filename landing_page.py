@@ -17,7 +17,7 @@ class LandingPage(tk.Tk):
         
         # Style for buttons
         style = ttk.Style()
-        style.configure('TButton', background='#007bff', foreground='black', font=('Helvetica', 10), padding=10))
+        style.configure('TButton', background='#007bff', foreground='black', font=('Helvetica', 10), padding=10)
 
         # Create and place buttons
         add_button = ttk.Button(self, text="➕Add Password", command=self.open_add_password)
