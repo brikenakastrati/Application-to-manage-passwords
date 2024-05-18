@@ -4,19 +4,19 @@ import mysql.connector
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
 import base64
-from login_signup import get_logged_in_user_id
 
 class UpdatePassword:
-    def __init__(self, root):
+    def __init__(self, root, logged_in_user_id):  # Accept logged_in_user_id as a parameter
         self.root = root
         self.root.title("Update Password")
         self.root.geometry("400x200")
+        self.logged_in_user_id = logged_in_user_id  # Store logged_in_user_id as an attribute
         
         # Connect to the database
         self.conn = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="2302",
+            password="1234",
             database="siguria"
         )
 
@@ -54,8 +54,7 @@ class UpdatePassword:
         query = "UPDATE tblpasswords SET encrypted_pwd = %s WHERE account = %s AND user_id = %s"
 
         # Assuming you have the values for encrypted_pwd and account
-        logged_in_user_id = get_logged_in_user_id()
-        values = (encrypted_password, account, logged_in_user_id)
+        values = (encrypted_password, account, self.logged_in_user_id)  # Use the stored logged_in_user_id
 
         try:
             cursor.execute(query, values)

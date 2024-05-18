@@ -5,19 +5,19 @@ import mysql.connector
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 import base64
-from login_signup import get_logged_in_user_id
 
 class ViewPasswords:
-    def __init__(self, root):
+    def __init__(self, root, logged_in_user_id):  # Accept logged_in_user_id as a parameter
         self.root = root
         self.root.title("View Passwords")
         self.root.geometry("500x400")
+        self.logged_in_user_id = logged_in_user_id  # Store logged_in_user_id as an attribute
 
         # Connect to the database
         self.conn = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="2302",
+            password="1234",
             database="siguria"
         )
 
@@ -35,6 +35,7 @@ class ViewPasswords:
 
         # Display passwords with styling
         self.display_passwords()
+
     def decrypt_password(self, encrypted_password):
         # Initialize AES cipher
         key = b'Sixteen byte key'
@@ -51,8 +52,7 @@ class ViewPasswords:
         query = "SELECT account, encrypted_pwd FROM tblpasswords WHERE user_id = %s"
 
         # Execute the query with the logged-in user ID as the parameter
-        logged_in_user_id = get_logged_in_user_id()
-        cursor.execute(query, (logged_in_user_id,))        
+        cursor.execute(query, (self.logged_in_user_id,))  # Use the stored logged_in_user_id
         for row in cursor.fetchall():
             platform = row['account']
             encrypted_password = row['encrypted_pwd']
@@ -78,6 +78,4 @@ class ViewPasswords:
             return "strong"
         else:
             return "strong"  # Default to strong if unknown
-
-
 

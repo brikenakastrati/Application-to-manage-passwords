@@ -6,6 +6,7 @@ import string
 from cryptography.fernet import Fernet
 import hashlib
 import subprocess
+from landing_page import LandingPage
 
 
 # Lidhja me databazën
@@ -14,7 +15,7 @@ def connect():
         conn = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="2302",
+            password="1234",
             database="siguria"
         )
         if conn.is_connected():
@@ -114,12 +115,8 @@ def switch_to_login():
     login_window.mainloop()  # Fillimi i dritares së hyrjes në sistem
 
 
-def get_logged_in_user_id():
-    return logged_in_user_id
-
-
 def on_login():
-    global login_email_entry, login_password_entry, logged_in_user_id
+    global login_email_entry, login_password_entry, logged_in_user_id  # Declare logged_in_user_id as global
     
     # Merrni email-in dhe fjalëkalimin e vendosur
     email = login_email_entry.get()
@@ -152,16 +149,13 @@ def on_login():
                     # Krahaso fjalëkalimet e dekriptuara
                     if decrypted_password_db == password:  
                         try:
-                                    logged_in_user_id = get_user_id_from_db(conn, email)
-                                    subprocess.run(["python", "landing_page.py"])
+                            global logged_in_user_id  # Declare logged_in_user_id as global
+                            logged_in_user_id = get_user_id_from_db(conn, email)  # Update the global variable
+                            LandingPage.start_application(logged_in_user_id)
                         except FileNotFoundError:
-                                    print("Gabim: Skripta nuk u gjet.")
+                            print("Gabim: Skripta nuk u gjet.")
                         
-                         
                         messagebox.showinfo("Sukses në Hyrje", "Hyrja në sistem u krye me sukses.")
-                        
-                         
-
                         # Bëni veprimet pas hyrjes së suksesshme, si hapja e një dritare të re ose veprime të tjera
                     else:
                         messagebox.showerror("Gabim në Hyrje", "Email-i ose fjalëkalimi është i pasaktë.")
@@ -179,8 +173,9 @@ def on_login():
             conn.close()  # Mbyll lidhjen me bazën e të dhënave
     else:
         messagebox.showerror("Gabim në Hyrje", "Lidhja me bazën e të dhënave dështoi.")
-       
 
+def get_logged_in_user_id():
+    return logged_in_user_id
 def get_user_id_from_db(conn, email):
     try:
         cursor = conn.cursor()

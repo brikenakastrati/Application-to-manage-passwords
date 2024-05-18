@@ -5,15 +5,16 @@ from update_password import UpdatePassword
 from password_display import ViewPasswords
 
 class LandingPage(tk.Tk):
-    def __init__(self):
+    def __init__(self, logged_in_user_id):
         super().__init__()
         self.title("Password Manager")
         self.geometry("400x200")
         self.configure(background="#f0f0f0")
+        self.logged_in_user_id = logged_in_user_id  # Store logged_in_user_id as an attribute
 
         # Style for buttons
         style = ttk.Style()
-        style.configure('TButton', background='#007bff', foreground='white')
+        style.configure('TButton', background='#007bff', foreground='black')
 
         # Create and place buttons
         add_button = ttk.Button(self, text="Add Password", command=self.open_add_password)
@@ -27,16 +28,17 @@ class LandingPage(tk.Tk):
 
     def open_add_password(self):
         add_password_window = tk.Toplevel(self)
-        AddPassword(add_password_window)
+        AddPassword(add_password_window,self.logged_in_user_id)
 
     def open_update_password(self):
         update_password_window = tk.Toplevel(self)
-        UpdatePassword(update_password_window)
+        UpdatePassword(update_password_window,self.logged_in_user_id)
 
     def open_view_passwords(self):
         view_passwords_window = tk.Toplevel(self)
-        ViewPasswords(view_passwords_window)
+        ViewPasswords(view_passwords_window,self.logged_in_user_id)
 
-# Create an instance of LandingPage and start the main loop
-app = LandingPage()
-app.mainloop()
+    @staticmethod
+    def start_application(logged_in_user_id):
+        app = LandingPage(logged_in_user_id)  # Pass logged_in_user_id to LandingPage
+        app.mainloop()
